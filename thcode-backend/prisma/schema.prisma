@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String   
+  email     String   @unique
+  password  String  
+  createdAt DateTime @default(now())
+  
+  idCard    IdCard?  
+}
+
+model IdCard {
+  id          String   @id @default(uuid())
+  nickname    String   @unique 
+  level       Int      @default(1)
+  experience  Int      @default(0)
+  badges      String[] 
+  
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Roadmap {
+  id          String   @id @default(uuid())
+  title       String
+  description String?   
+  contents    Content[] 
+}
+
+model Content {
+  id          String   @id @default(uuid())
+  title       String
+  body        String   
+  roadmapId   String
+  roadmap     Roadmap  @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+}
+
+model Glossary {
+  id          String   @id @default(uuid())
+  term        String   @unique
+  definition  String
+}

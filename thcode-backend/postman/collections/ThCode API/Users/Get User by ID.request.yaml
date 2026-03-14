@@ -1,0 +1,26 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/users/:id'
+order: 3000
+pathVariables:
+  - key: id
+    value: '{{userId}}'
+    description: User UUID
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains user data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("name");
+          pm.expect(jsonData).to.have.property("email");
+      });

@@ -1,0 +1,33 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/idcards'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nickname": "coder123",
+      "userId": "{{userId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains ID Card data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("nickname");
+          pm.expect(jsonData).to.have.property("level");
+          pm.expect(jsonData).to.have.property("experience");
+      });

@@ -1,0 +1,32 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/glossary'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "term": "Variable",
+      "definition": "A named storage location in memory that holds a value"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains glossary data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("term");
+          pm.expect(jsonData).to.have.property("definition");
+      });

@@ -1,0 +1,35 @@
+{
+  "name": "techcode-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@prisma/client": "^6.19.2",
+    "bcrypt": "^6.0.0",
+    "bullmq": "^5.71.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "ioredis": "^5.10.0",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/ioredis": "^4.28.10",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.4.0",
+    "@types/pg": "^8.18.0",
+    "prisma": "^6.19.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}

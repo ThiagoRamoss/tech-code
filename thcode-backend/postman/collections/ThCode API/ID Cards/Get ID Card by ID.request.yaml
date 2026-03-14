@@ -1,0 +1,26 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/idcards/:id'
+order: 3000
+pathVariables:
+  - key: id
+    value: '{{idCardId}}'
+    description: ID Card UUID
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains ID Card data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("nickname");
+          pm.expect(jsonData).to.have.property("level");
+      });

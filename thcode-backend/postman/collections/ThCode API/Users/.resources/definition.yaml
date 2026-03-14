@@ -1,0 +1,4 @@
+$kind: collection
+name: Users
+description: User management endpoints - Create, Read, Update, Delete users
+order: 3000

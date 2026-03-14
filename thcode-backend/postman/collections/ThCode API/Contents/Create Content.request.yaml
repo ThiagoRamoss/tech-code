@@ -1,0 +1,34 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/contents'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Introduction to Variables",
+      "body": "Variables are containers for storing data values...",
+      "roadmapId": "{{roadmapId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains content data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("title");
+          pm.expect(jsonData).to.have.property("body");
+          pm.expect(jsonData).to.have.property("roadmapId");
+      });

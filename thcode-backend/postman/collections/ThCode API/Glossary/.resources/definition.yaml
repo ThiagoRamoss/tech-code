@@ -1,0 +1,4 @@
+$kind: collection
+name: Glossary
+description: Glossary (technical terms) endpoints - Manage technical term definitions
+order: 7000

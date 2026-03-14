@@ -1,0 +1,26 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/contents/:id'
+order: 3000
+pathVariables:
+  - key: id
+    value: '{{contentId}}'
+    description: Content UUID
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });
+
+      pm.test("Response contains content data", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("title");
+          pm.expect(jsonData).to.have.property("body");
+      });

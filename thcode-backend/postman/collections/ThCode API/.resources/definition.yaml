@@ -1,0 +1,18 @@
+$kind: collection
+name: ThCode API
+description: |-
+  ThCode Backend API - Educational programming platform focused on continuous and structured learning.
+  
+  ## Resources
+  - **Users** - User management (CRUD)
+  - **ID Cards** - Gamification and user profile
+  - **Roadmaps** - Learning paths
+  - **Contents** - Study materials
+  - **Glossary** - Technical terms
+  - **Sandbox** - Code execution queue
+  - **Health** - API health check
+
+variables:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+    description: Base URL for the ThCode API

@@ -1,0 +1,4 @@
+$kind: collection
+name: Contents
+description: Content (study materials) endpoints - Manage educational content linked to roadmaps
+order: 6000

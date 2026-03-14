@@ -1,0 +1,29 @@
+$kind: http-request
+method: PUT
+url: '{{baseUrl}}/roadmaps/:id'
+order: 4000
+pathVariables:
+  - key: id
+    value: '{{roadmapId}}'
+    description: Roadmap UUID
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "JavaScript Advanced",
+      "description": "Advanced JavaScript concepts and patterns"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is JSON", function () {
+          pm.response.to.have.header("Content-Type", /application\/json/);
+      });

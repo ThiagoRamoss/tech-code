@@ -1,0 +1,4 @@
+$kind: collection
+name: ID Cards
+description: ID Card (gamification profile) endpoints - Manage user gamification profiles with levels, experience, and badges
+order: 4000
